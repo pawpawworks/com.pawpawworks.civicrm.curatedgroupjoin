@@ -456,5 +456,11 @@ function _curatedgroupjoin_civix_civicrm_alterSettingsFolders(&$metaDataFolders 
 
 function _curatedgroupjoin_civix_civicrm_entityTypes(&$entityTypes) {
   $entityTypes = array_merge($entityTypes, array (
+    'CRM_Curatedgroupjoin_DAO_CuratedGroupJoin' => 
+    array (
+      'name' => 'CuratedGroupJoin',
+      'class' => 'CRM_Curatedgroupjoin_DAO_CuratedGroupJoin',
+      'table' => 'civicrm_curated_group_join',
+    ),
   ));
 }

@@ -4,8 +4,7 @@
   <base>CRM/Curatedgroupjoin</base>
   <class>CuratedGroupJoin</class>
   <name>civicrm_curated_group_join</name>
-  <comment>FIXME</comment>
-  <add>4.4</add>
+  <comment>Configurations for the Curated Group Join extension</comment>
   <log>true</log>
 
   <field>
@@ -13,7 +12,6 @@
     <type>int unsigned</type>
     <required>true</required>
     <comment>Unique CuratedGroupJoin ID</comment>
-    <add>4.4</add>
   </field>
   <primaryKey>
     <name>id</name>
@@ -21,17 +19,33 @@
   </primaryKey>
 
   <field>
-    <name>contact_id</name>
-    <type>int unsigned</type>
-    <comment>FK to Contact</comment>
-    <add>4.4</add>
+    <name>form_class</name>
+    <type>varchar</type>
+    <length>255</length>
+    <comment>The class of form affected by this configuration.</comment>
   </field>
-  <foreignKey>
-    <name>contact_id</name>
-    <table>civicrm_contact</table>
-    <key>id</key>
-    <add>4.4</add>
-    <onDelete>CASCADE</onDelete>
-  </foreignKey>
 
+  <field>
+    <name>entity_id</name>
+    <type>int unsigned</type>
+    <comment>The ID of the form affected by this configuration.</comment>
+  </field>
+  <index>
+    <name>index_entity_id</name>
+    <fieldName>entity_id</fieldName>
+  </index>
+
+  <field>
+    <name>label</name>
+    <type>varchar</type>
+    <length>255</length>
+    <comment>A heading to display before the group listing.</comment>
+  </field>
+
+  <field>
+    <name>groups_id</name>
+    <type>varchar</type>
+    <length>255</length>
+    <comment>A comma-separated list of group IDs to display.</comment>
+  </field>
 </table>

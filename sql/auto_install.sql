@@ -82,10 +82,10 @@ CREATE TABLE `civicrm_curated_group_join` (
 
 
      `id` int unsigned NOT NULL AUTO_INCREMENT  COMMENT 'Unique CuratedGroupJoin ID',
-     `form_class` varchar(255)    COMMENT 'The class of form affected by this configuration.',
-     `entity_id` int unsigned    COMMENT 'The ID of the form affected by this configuration.',
-     `label` varchar(255)    COMMENT 'A heading to display before the group listing.',
-     `groups_id` varchar(255)    COMMENT 'A comma-separated list of group IDs to display.' 
+     `form_class` varchar(255) NOT NULL   COMMENT 'The class of form affected by this configuration.',
+     `entity_id` int unsigned NOT NULL   COMMENT 'The ID of the form affected by this configuration.',
+     `label` varchar(255) NOT NULL   COMMENT 'A heading to display before the group listing.',
+     `groups_id` varchar(255) NOT NULL   COMMENT 'A comma-separated list of group IDs to display.' 
 ,
         PRIMARY KEY (`id`)
  

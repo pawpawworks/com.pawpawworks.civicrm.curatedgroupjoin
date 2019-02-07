@@ -20,6 +20,7 @@
 
   <field>
     <name>form_class</name>
+    <required>true</required>
     <type>varchar</type>
     <length>255</length>
     <comment>The class of form affected by this configuration.</comment>
@@ -27,6 +28,7 @@
 
   <field>
     <name>entity_id</name>
+    <required>true</required>
     <type>int unsigned</type>
     <comment>The ID of the form affected by this configuration.</comment>
   </field>
@@ -37,6 +39,7 @@
 
   <field>
     <name>label</name>
+    <required>true</required>
     <type>varchar</type>
     <length>255</length>
     <comment>A heading to display before the group listing.</comment>
@@ -44,6 +47,7 @@
 
   <field>
     <name>groups_id</name>
+    <required>true</required>
     <type>varchar</type>
     <length>255</length>
     <comment>A comma-separated list of group IDs to display.</comment>

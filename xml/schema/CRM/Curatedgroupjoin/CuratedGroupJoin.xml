@@ -46,7 +46,7 @@
   </field>
 
   <field>
-    <name>groups_id</name>
+    <name>group_ids</name>
     <required>true</required>
     <type>varchar</type>
     <length>255</length>

@@ -75,7 +75,7 @@ class Custom extends FormMod implements FormMod\IFace {
         'cgj_label' => $groupConfig['label'],
       ]);
     }
-    catch (CiviCRM_API3_Exception $e) {
+    catch (\CiviCRM_API3_Exception $e) {
       // nothing to do here; the fields will be appropriately blank
     }
   }

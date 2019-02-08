@@ -16,6 +16,14 @@ abstract class ConfiguredForm extends \Civi\Curatedgroupjoin\FormMod {
 
   /**
    * @var string
+   *   The name of the form class to which the group configs were applied.
+   *   Note that this may vary from the class of $this->form in the case of
+   *   confirmation screens, etc.
+   */
+  protected $configuredFormClass;
+
+  /**
+   * @var string
    *   The name to use for the field containing the user's group selections.
    */
   protected $groupFieldName = 'cgj_groups';
@@ -29,10 +37,15 @@ abstract class ConfiguredForm extends \Civi\Curatedgroupjoin\FormMod {
   public function __construct(\CRM_Core_Form $form) {
     parent::__construct($form);
 
+    // Allow overrides from children
+    if (!isset($this->configuredFormClass)) {
+      $this->configuredFormClass = get_class($this->form);
+    }
+
     try {
       $this->config = civicrm_api3('CuratedGroupJoin', 'getsingle', [
         'entity_id' => $this->form->getVar('_id'),
-        'form_class' => get_class($this->form),
+        'form_class' => $this->configuredFormClass,
       ]);
     }
     catch (\CiviCRM_API3_Exception $e) {
@@ -86,12 +99,26 @@ abstract class ConfiguredForm extends \Civi\Curatedgroupjoin\FormMod {
    * Un/subscribes user to groups per selections.
    */
   public function postProcess() {
+    $selectedGroups = array_keys((array) $this->form->exportValue($this->groupFieldName));
+    $this->processGroupSelections($selectedGroups);
+  }
+
+  /**
+   * Helper function to un/subscribe user to groups per selections.
+   *
+   * This is broken out from postProcess to isolate the processing logic from
+   * the extraction of the submission from the form object, which varies
+   * according to the class (e.g., submission vs. confirmation screens).
+   *
+   * @param array $groupSelections
+   *   Group IDs that the user selected.
+   */
+  protected function processGroupSelections(array $groupSelections) {
     $configuredGroups = explode(',', \CRM_Utils_Array::value('group_ids', $this->config));
     // The list of groups the user is subscribed to that appear on the form.
     $potentialUnsubscribes = array_intersect($configuredGroups, $this->getUserGroups());
 
-    $selectedGroups = array_keys((array) $this->form->exportValue($this->groupFieldName));
-    $unsubscribes = array_diff($potentialUnsubscribes, $selectedGroups);
+    $unsubscribes = array_diff($potentialUnsubscribes, $groupSelections);
 
     $groupContactParams = [
       'options' => [
@@ -106,7 +133,7 @@ abstract class ConfiguredForm extends \Civi\Curatedgroupjoin\FormMod {
     }
 
     $groupContactParams['status'] = 'Added';
-    foreach ($selectedGroups as $groupId) {
+    foreach ($groupSelections as $groupId) {
       $groupContactParams['group_id'] = $groupId;
       civicrm_api3('GroupContact', 'create', $groupContactParams);
     }

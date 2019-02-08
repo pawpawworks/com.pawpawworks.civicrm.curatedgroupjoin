@@ -26,6 +26,7 @@ class Main extends FormMod\ConfiguredForm implements FormMod\IFace {
     $this->setDefaults();
 
     $this->addTemplate('page-body');
+    $this->form->assign('cgj_legend', $this->config['label']);
   }
 
   /**

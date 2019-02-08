@@ -29,4 +29,12 @@
   </div>
 </div>
 
+<script type="text/javascript">
+  {literal}
+    CRM.$(function ($) {
+      $('.crm-cgj-settings-accordion').insertBefore($('.crm-submit-buttons').last());
+    });
+  {/literal}
+</script>
+
 {/crmScope}

@@ -42,7 +42,7 @@ class Custom extends FormMod implements FormMod\IFace {
    */
   public function postProcess() {
     $groups = $this->form->exportValue('cgj_groups');
-    $label = $this->form->exportValue('cgj_label');
+    $label = strip_tags($this->form->exportValue('cgj_label'));
 
     // Action is required only if the user made use of the extended feature.
     if (!$label || !$groups) {

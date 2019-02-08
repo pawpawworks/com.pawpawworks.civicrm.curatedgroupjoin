@@ -24,6 +24,9 @@
   <comments>
     Support is provided on a volunteer basis.
   </comments>
+  <classloader>
+    <psr4 prefix="Civi\" path="Civi" />
+  </classloader>
   <civix>
     <namespace>CRM/Curatedgroupjoin</namespace>
   </civix>

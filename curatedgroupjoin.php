@@ -1,7 +1,12 @@
 <?php
 
+/**
+ * This file contains civix-generated hook implementations primarily related to
+ * the extension lifecycle. Hook implementations specific to this extension's
+ * behavior are located in curatedgroupjoin.hooks.php.
+ */
 require_once 'curatedgroupjoin.civix.php';
-use CRM_Curatedgroupjoin_ExtensionUtil as E;
+require_once 'curatedgroupjoin.hooks.php';
 
 /**
  * Implements hook_civicrm_config().

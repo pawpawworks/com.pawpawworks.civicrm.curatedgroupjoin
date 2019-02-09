@@ -64,7 +64,8 @@ named according to the above pattern and that CiviCRM's autoloader can find them
 * When a contribution form is configured not to use a confirmation page, and the
   user submitting the form is anonymous, CiviCRM does not provide
   `hook_civicrm_postProcess` subscribers a way to identify the contact.
-  Therefore, contacts cannot be added to groups in this context.
+  Therefore, contacts cannot be added to groups in this context; as a stopgap
+  measure, the extension will not activate. ([#1][i1])
 * Supports only Contribution Pages. There are no plans to develop similar
   functionality for event registration pages or other forms. If you would like
   to develop or sponsor such functionality, please reach out.
@@ -75,3 +76,4 @@ named according to the above pattern and that CiviCRM's autoloader can find them
 
 [exBackend]: /Civi/Curatedgroupjoin/FormMod/CRM/Contribute/Form/ContributionPage/Custom.php
 [exFrontend]: /Civi/Curatedgroupjoin/FormMod/CRM/Contribute/Form/Contribution/Main.php
+[i1]: https://github.com/pawpawworks/com.pawpawworks.civicrm.curatedgroupjoin/issues/1

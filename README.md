@@ -45,9 +45,9 @@ which configurations are stored.
 Existing CiviCRM forms are modified using classes which implement an interface
 `Civi\Curatedgroupjoin\FormMod\IFace`. The classes are named for the forms that
 they modify. See
-[`Civi\Curatedgroupjoin\FormMod\CRM\Contribute\Form\ContributionPage\Custom`](https://github.com/pawpawworks/com.pawpawworks.civicrm.curatedgroupjoin/blob/master/Civi/Curatedgroupjoin/FormMod/CRM/Contribute/Form/ContributionPage/Custom.php)
+[`Civi\Curatedgroupjoin\FormMod\CRM\Contribute\Form\ContributionPage\Custom`][exBackend]
 for an example of how to add a configuration screen for site administrators.
-See [`Civi\Curatedgroupjoin\FormMod\CRM\Contribute\Form\Contribution\Main`](https://github.com/pawpawworks/com.pawpawworks.civicrm.curatedgroupjoin/blob/master/Civi/Curatedgroupjoin/FormMod/CRM/Contribute/Form/Contribution/Main.php)
+See [`Civi\Curatedgroupjoin\FormMod\CRM\Contribute\Form\Contribution\Main`][exFrontend]
 for an example of exposing the configured groups to end users. Note that new
 form-modifying classes can be added to a third-party extension provided they are
 named according to the above pattern and that CiviCRM's autoloader can find them.
@@ -71,4 +71,7 @@ named according to the above pattern and that CiviCRM's autoloader can find them
 
 ## License
 
-[AGPL-3.0](https://github.com/pawpawworks/com.pawpawworks.civicrm.curatedgroupjoin/blob/master/LICENSE.txt)
+[AGPL-3.0](/LICENSE.txt)
+
+[exBackend]: /Civi/Curatedgroupjoin/FormMod/CRM/Contribute/Form/ContributionPage/Custom.php
+[exFrontend]: /Civi/Curatedgroupjoin/FormMod/CRM/Contribute/Form/Contribution/Main.php

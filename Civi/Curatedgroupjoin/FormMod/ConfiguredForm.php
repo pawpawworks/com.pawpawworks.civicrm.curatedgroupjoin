@@ -15,6 +15,13 @@ abstract class ConfiguredForm extends \Civi\Curatedgroupjoin\FormMod {
   protected $config;
 
   /**
+   * @var int
+   *   The contact ID of the user represented in the form, initialized to the
+   *   anonymous user.
+   */
+  private $contactId = 0;
+
+  /**
    * @var string
    *   The name of the form class to which the group configs were applied.
    *   Note that this may vary from the class of $this->form in the case of
@@ -32,7 +39,7 @@ abstract class ConfiguredForm extends \Civi\Curatedgroupjoin\FormMod {
    * @var array
    *   The IDs of groups to which the user is subscribed.
    */
-  protected $userGroups;
+  protected $userGroups = [];
 
   public function __construct(\CRM_Core_Form $form) {
     parent::__construct($form);
@@ -51,6 +58,20 @@ abstract class ConfiguredForm extends \Civi\Curatedgroupjoin\FormMod {
     catch (\CiviCRM_API3_Exception $e) {
       // nothing to do here; form not configured for use with this extension
     }
+  }
+
+  /**
+   * @return int
+   *   Returns 0 if the contact ID cannot be determined or the user is anonymous.
+   */
+  protected function getContactId() {
+    if (($this->contactId === 0) && isset($this->form->_contactID)) {
+      $this->contactId = (int) $this->form->_contactID;
+    }
+    if (($this->contactId === 0) && isset($this->form->_params['select_contact_id'])) {
+      $this->contactId = (int) $this->form->_params['select_contact_id'];
+    }
+    return $this->contactId;
   }
 
   /**
@@ -82,9 +103,9 @@ abstract class ConfiguredForm extends \Civi\Curatedgroupjoin\FormMod {
    * @return array
    */
   protected function getUserGroups() {
-    if (!isset($this->userGroups)) {
+    if (empty($this->userGroups) && $this->getContactId()) {
       $apiResult = civicrm_api3('GroupContact', 'get', [
-        'contact_id' => 'user_contact_id', // i.e., the current user
+        'contact_id' => $this->getContactId(),
         'sequential' => 0,
         'status' => 'Added',
       ]);
@@ -124,7 +145,7 @@ abstract class ConfiguredForm extends \Civi\Curatedgroupjoin\FormMod {
       'options' => [
         'match' => ['group_id', 'contact_id'],
       ],
-      'contact_id' => 'user_contact_id',
+      'contact_id' => $this->getContactId(),
       'status' => 'Removed',
     ];
     foreach ($unsubscribes as $groupId) {

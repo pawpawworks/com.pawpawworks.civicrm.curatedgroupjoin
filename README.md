@@ -54,13 +54,6 @@ named according to the above pattern and that CiviCRM's autoloader can find them
 
 ## Known Issues/Limitations
 
-* When the form is completed on behalf of another user -- i.e., when a user
-  clicks on the link in the _Welcome Fulano. (Not Fulano, or want to do this for
-  a different person?)_ message displayed only to authenticated users-- or when
-  the form is completed by an anonymous user, the following issues will occur.
-  The list of groups to which the contact group belongs cannot be retrieved, so
-  the group selections will not be pre-populated. On submission, these users
-  will be removed from any groups displayed on the form which were not selected.
 * When a contribution form is configured not to use a confirmation page, and the
   user submitting the form is anonymous, CiviCRM does not provide
   `hook_civicrm_postProcess` subscribers a way to identify the contact.

@@ -103,7 +103,14 @@ abstract class ConfiguredForm extends \Civi\Curatedgroupjoin\FormMod {
    * @return array
    */
   protected function getUserGroups() {
-    if (empty($this->userGroups) && $this->getContactId()) {
+    // Checking to see if the user is authenticated keeps the class unaware of
+    // an unauthenticated contact's pre-existing group subscriptions throughout
+    // the form lifecycle. (CiviCRM's dedupe rules may cause the contact ID --
+    // and by extension the group associations -- of the unauthenticated contact
+    // to become known, which could result in unintended group unsubscription.
+    // See Issue #2.)
+    $isAuthenticated = (\CRM_Core_Session::getLoggedInContactID() !== NULL);
+    if (empty($this->userGroups) && $isAuthenticated && $this->getContactId()) {
       $apiResult = civicrm_api3('GroupContact', 'get', [
         'contact_id' => $this->getContactId(),
         'sequential' => 0,

@@ -90,6 +90,7 @@ abstract class ConfiguredForm extends \Civi\Curatedgroupjoin\FormMod {
           'id' => ['IN' => explode(',', $this->config['group_ids'])],
           'is_active' => 1,
           'is_hidden' => 0,
+          'options' => ['limit' => 0],
           'saved_search_id' => ['IS NULL' => 1],
           'visibility' => 'Public Pages',
         ])['values'];
@@ -113,6 +114,7 @@ abstract class ConfiguredForm extends \Civi\Curatedgroupjoin\FormMod {
     if (empty($this->userGroups) && $isAuthenticated && $this->getContactId()) {
       $apiResult = civicrm_api3('GroupContact', 'get', [
         'contact_id' => $this->getContactId(),
+        'options' => ['limit' => 0],
         'sequential' => 0,
         'status' => 'Added',
       ]);
